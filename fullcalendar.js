@@ -1,7 +1,7 @@
 /*!
- * FullCalendar v1.6.7
- * Docs & License: http://arshaw.com/fullcalendar/
- * (c) 2013 Adam Shaw
+ * <%= meta.title %> v<%= meta.version %>
+ * Docs & License: <%= meta.homepage %>
+ * (c) <%= meta.copyright %>
  */
 
 /*
@@ -115,7 +115,7 @@ var rtlDefaults = {
 
 ;;
 
-var fc = $.fullCalendar = { version: "1.6.7" };
+var fc = $.fullCalendar = { version: "<%= meta.version %>" };
 var fcViews = fc.views = {};
 
 
@@ -5081,13 +5081,13 @@ function View(element, calendar, viewName) {
 function DayEventRenderer() {
 	var t = this;
 
-	
+
 	// exports
 	t.renderDayEvents = renderDayEvents;
 	t.draggableDayEvent = draggableDayEvent; // made public so that subclasses can override
 	t.resizableDayEvent = resizableDayEvent; // "
-	
-	
+
+
 	// imports
 	var opt = t.opt;
 	var trigger = t.trigger;
@@ -5347,10 +5347,11 @@ function DayEventRenderer() {
 				"'" +
 				"position:absolute;" +
 				"left:" + segment.left + "px;" +
-				skinCss +
 				"'" +
 			">" +
-			"<div class='fc-event-inner'>";
+			"<div class='fc-event-inner' style='" +
+			skinCss +
+			"'>";
 		if (!event.allDay && segment.isStart) {
 			html +=
 				"<span class='fc-event-time'>" +
@@ -5644,7 +5645,7 @@ function DayEventRenderer() {
 		eventElementHandlers(event, eventElement);
 	}
 
-	
+
 	function draggableDayEvent(event, eventElement) {
 		var hoverListener = getHoverListener();
 		var dayDelta;
@@ -5685,13 +5686,13 @@ function DayEventRenderer() {
 		});
 	}
 
-	
+
 	function resizableDayEvent(event, element, segment) {
 		var isRTL = opt('isRTL');
 		var direction = isRTL ? 'w' : 'e';
 		var handle = element.find('.ui-resizable-' + direction); // TODO: stop using this class because we aren't using jqui for this
 		var isResizing = false;
-		
+
 		// TODO: look into using jquery-ui mouse widget for this stuff
 		disableTextSelection(element); // prevent native <a> selection for IE
 		element
@@ -5705,7 +5706,7 @@ function DayEventRenderer() {
 					                               // (eventElementHandlers needs to be bound after resizableDayEvent)
 				}
 			});
-		
+
 		handle.mousedown(function(ev) {
 			if (ev.which != 1) {
 				return; // needs to be left mouse button
@@ -5767,7 +5768,7 @@ function DayEventRenderer() {
 					);
 				}
 			}, ev);
-			
+
 			function mouseup(ev) {
 				trigger('eventResizeStop', this, event, ev);
 				$('body').css('cursor', '');
@@ -5778,14 +5779,14 @@ function DayEventRenderer() {
 					// event redraw will clear helpers
 				}
 				// otherwise, the drag handler already restored the old events
-				
+
 				setTimeout(function() { // make this happen after the element's click event
 					isResizing = false;
 				},0);
 			}
 		});
 	}
-	
+
 
 }
 
