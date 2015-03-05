@@ -582,54 +582,75 @@ function Calendar(element, options, eventSources) {
 	
 	
 	function prev() {
-		renderView(-1);
+		trigger('viewBeforeChange');
+			setTimeout(function(){
+			renderView(-1);
+		}, 10);
 	}
 	
 	
 	function next() {
-		renderView(1);
+		trigger('viewBeforeChange');
+			setTimeout(function(){
+			renderView(1);
+		}, 10);
 	}
 	
 	
 	function prevYear() {
-		addYears(date, -1);
-		renderView();
+		trigger('viewBeforeChange');
+		setTimeout(function(){
+			addYears(date, -1);
+			renderView();
+		}, 10);
 	}
 	
 	
 	function nextYear() {
-		addYears(date, 1);
-		renderView();
+		trigger('viewBeforeChange');
+		setTimeout(function(){
+			addYears(date, 1);
+			renderView();
+		}, 10);
 	}
 	
 	
 	function today() {
-		date = new Date();
-		renderView();
+		trigger('viewBeforeChange');
+		setTimeout(function(){
+			date = new Date();
+			renderView();
+		}, 10);
 	}
 	
 	
 	function gotoDate(year, month, dateOfMonth) {
-		if (year instanceof Date) {
-			date = cloneDate(year); // provided 1 argument, a Date
-		}else{
-			setYMD(date, year, month, dateOfMonth);
-		}
-		renderView();
+		trigger('viewBeforeChange');
+			setTimeout(function(){
+			if (year instanceof Date) {
+				date = cloneDate(year); // provided 1 argument, a Date
+			}else{
+				setYMD(date, year, month, dateOfMonth);
+			}
+			renderView();
+		}, 10);
 	}
 	
 	
 	function incrementDate(years, months, days) {
-		if (years !== undefined) {
-			addYears(date, years);
-		}
-		if (months !== undefined) {
-			addMonths(date, months);
-		}
-		if (days !== undefined) {
-			addDays(date, days);
-		}
-		renderView();
+		trigger('viewBeforeChange');
+		setTimeout(function(){
+			if (years !== undefined) {
+				addYears(date, years);
+			}
+			if (months !== undefined) {
+				addMonths(date, months);
+			}
+			if (days !== undefined) {
+				addDays(date, days);
+			}
+			renderView();
+		}, 10);
 	}
 	
 	
